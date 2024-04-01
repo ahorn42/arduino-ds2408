@@ -1,4 +1,3 @@
-#include <WProgram.h>
 #include <DS2408.h>
 #include <OneWire.h>
 #include <string.h>
@@ -22,15 +21,6 @@ static int uart_putchar (char c, FILE *stream) {
     Serial.write(c) ;
     return 0 ;
 }
-void setup_stdout() {
-    fdev_setup_stream (&uartout, uart_putchar, NULL, _FDEV_SETUP_WRITE);
-    stdout = &uartout ;
-}
-
-#ifdef CXA_PURE_VIRTUAL_FIX
-extern "C" void __cxa_pure_virtual(void);
-void __cxa_pure_virtual(void) { while(1); }
-#endif
 
 void print_byte(uint8_t data);
 void print_address(byte* address);
@@ -42,7 +32,6 @@ void display_state(Device device);
 
 void setup(void) {
     Serial.begin(9600);
-    setup_stdout();
 
     Serial.println("Welcome2");
 
